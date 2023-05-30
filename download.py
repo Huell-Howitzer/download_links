@@ -4,6 +4,7 @@ import argparse
 from tqdm import tqdm
 from rich.console import Console
 from rich.progress import Progress, BarColumn, TextColumn, TimeElapsedColumn
+import argcomplete
 
 
 def download_file(url, destination):
@@ -52,6 +53,9 @@ if __name__ == '__main__':
     parser.add_argument('--suffixes', nargs='+', required=True,
                         help='File suffix(es) to download')
 
+    # Enable tab completion
+    argcomplete.autocomplete(parser)
+
     args = parser.parse_args()
     input_file = args.input_file
     output_dir = args.output_dir
@@ -60,9 +64,3 @@ if __name__ == '__main__':
 
     download_links_from_file(input_file, output_dir, file_suffixes)
     print("\nDownload completed.")
-
-    help_text = f"\n[bold blue]Help Menu:[/bold blue]\n\n{parser.format_help()}"
-
-    console = Console()
-    console.rule("[bold blue]Help Menu[/bold blue]", style="bold blue")
-    console.print(help_text)
