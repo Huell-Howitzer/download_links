@@ -61,8 +61,8 @@ if __name__ == '__main__':
     download_links_from_file(input_file, output_dir, file_suffixes)
     print("\nDownload completed.")
 
-    help_text = f"\n[bold]Help Menu:[/bold]\n\n{parser.format_help()}"
+    help_text = f"\n[bold blue]Help Menu:[/bold blue]\n\n{parser.format_help()}"
 
     console = Console()
-    console.rule("[bold blue]Help Menu[/bold blue]")
-    console.print(help_text, style="bold blue")
+    console.rule("[bold blue]Help Menu[/bold blue]", style="bold blue")
+    console.print(help_text)
