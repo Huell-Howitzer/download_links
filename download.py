@@ -3,7 +3,8 @@ import urllib.request
 import argparse
 from tqdm import tqdm
 from rich.console import Console
-from rich.progress import Progress
+from rich.progress import Progress, BarColumn, TextColumn, TimeElapsedColumn
+import argcomplete
 
 
 def download_file(url, destination):
@@ -39,7 +40,6 @@ def download_links_from_file(file_path, output_dir, file_suffixes):
                 download_file(link, destination)
                 progress.update(task, advance=1)
                 progress.refresh()
-
     print("\nDownload completed.")
 
 
@@ -53,12 +53,14 @@ if __name__ == '__main__':
     parser.add_argument('--suffixes', nargs='+', required=True,
                         help='File suffix(es) to download')
 
+    # Enable tab completion
+    argcomplete.autocomplete(parser)
+
     args = parser.parse_args()
     input_file = args.input_file
     output_dir = args.output_dir
     file_suffixes = [
         '.' + suffix if not suffix.startswith('.') else suffix for suffix in args.suffixes]
 
-    console = Console()
     download_links_from_file(input_file, output_dir, file_suffixes)
-    console.print("\nDownload completed.", style="bold green")
+    print("\nDownload completed.")
